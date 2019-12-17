@@ -1,0 +1,6 @@
+[submodule "DBCD"]
+	path = DBCD
+	url = https://github.com/wowdev/DBCD.git
+[submodule "WoWDBDefs"]
+	path = WoWDBDefs
+	url = https://github.com/wowdev/WoWDBDefs.git
