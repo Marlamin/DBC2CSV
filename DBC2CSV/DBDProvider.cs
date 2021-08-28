@@ -20,7 +20,7 @@ namespace DBC2CSV
 
         public int LoadDefinitions()
         {
-            var definitionsDir = "definitions";
+            var definitionsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "definitions");
             Console.WriteLine("Reloading definitions from directory " + definitionsDir);
 
             // lookup needs both filepath and def for DBCD to work
