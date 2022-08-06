@@ -34,7 +34,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: Release.zip
+        file: /home/runner/work/DBC2CSV/DBC2CSV/DBC2CSV/bin/Release/net6.0/Release.zip
         asset_name: Release
         tag: ${{ github.ref }}
         overwrite: true
