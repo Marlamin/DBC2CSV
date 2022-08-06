@@ -42,6 +42,7 @@ namespace DBC2CSV
                     FileAttributes attr = File.GetAttributes(arg);
                     if (attr.HasFlag(FileAttributes.Directory))
                     {
+                        hotfixFiles.AddRange(Directory.EnumerateFiles(arg, "*.bin", SearchOption.TopDirectoryOnly).ToList());
                         filesToExport.AddRange(Directory.EnumerateFiles(arg, "*.db2", SearchOption.TopDirectoryOnly).ToList());
                         filesToExport.AddRange(Directory.EnumerateFiles(arg, "*.dbc", SearchOption.TopDirectoryOnly).ToList());
                     }
