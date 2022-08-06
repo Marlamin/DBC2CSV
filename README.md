@@ -5,8 +5,11 @@ This project is a stand-alone version of the WoW.tools DBC/DB2 -> CSV export fun
 ### Definitions
 While definitions are included at release time, these are likely to be outdated when exporting DB2s from a more recent version of WoW. Hopefully up-to-date definitions can be found on [here](https://github.com/wowdev/WoWDBDefs) (to download, click Code -> Download ZIP), to update definitions overwrite the `definitions` folder with the `definitions` folder from the downloaded version of the WoWDBDefs repo.
 
+### Getting DBC/DB2 files
+This tool does not download or extract DBC/DB2 files for you. This needs to be done through a different application such as [WoW.tools](https://wow.tools/files) (while available), [CASCExplorer](https://github.com/WoW-Tools/CASCExplorer/releases) or [wow.export](https://www.kruithne.net/wow.export/) (DB2s aren't listed in wow.export by default, for that go to the menu on the top right and click "Browse Raw Client files").
+
 ### Hotfixes
-Hotfix files (DBCache.bin) can be supplied to the application as well, but please make sure these are from the same (or a compatible) build of the game as the DB2s you are giving to the application, there might be crashes/malformed output otherwise.
+Hotfix files (DBCache.bin) can be supplied to the application as well, but please make sure these are from the same (or a compatible) build of the game as the DB2s you are giving to the application, there might be crashes/malformed output otherwise. DBCache.bin can be found in your WoW directory (e.g. `_retail_/Cache/ADB/enUS`).
 
 ### Converting 
 Exported CSV files will be placed in the same directory as the DBC/DB2 file, but with a .csv extension instead.
