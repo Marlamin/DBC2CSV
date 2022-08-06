@@ -28,7 +28,7 @@ jobs:
     - name: Archive Release
       uses: thedoctor0/zip-release@main
       with:
-        directory: '/home/runner/work/DBC2CSV/DBC2CSV/DBC2CSV/bin/Debug/net6.0'
+        directory: '/home/runner/work/DBC2CSV/DBC2CSV/DBC2CSV/bin/Release/net6.0'
         type: 'zip'
         filename: 'Release.zip'
     - name: Upload binaries to release
