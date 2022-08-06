@@ -6,10 +6,32 @@ on:
       - '*'
 
 jobs:
-  build:
-
+  create_release:
+    name: Create Release
     runs-on: ubuntu-latest
-
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+  build:
+    name: Build Release
+    needs: create_release
+    strategy:
+      matrix:
+        kind: ['linux', 'windows']
+        include:
+          - kind: linux
+            os: ubuntu-latest
+            target: linux-x64
+          - kind: windows
+            os: windows-latest
+            target: win-x64
+    runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v3
       with:
@@ -27,15 +49,10 @@ jobs:
     - name: Archive Release
       uses: thedoctor0/zip-release@main
       with:
-        directory: '/home/runner/work/DBC2CSV/DBC2CSV/DBC2CSV/bin/Release/net6.0'
+        directory: ${{ github.workspace }}/DBC2CSV/bin/Release/net6.0
         type: 'zip'
-        filename: 'Release.zip'
-    - name: Upload binaries to release
-      uses: svenstaro/upload-release-action@v2
+        filename: ${{ github.workspace }}/Release.zip
+    - name: Release
+      uses: softprops/action-gh-release@v1
       with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: /home/runner/work/DBC2CSV/DBC2CSV/DBC2CSV/bin/Release/net6.0/Release.zip
-        asset_name: Release
-        tag: ${{ github.ref }}
-        overwrite: true
-        body: "Latest release"
+        files: ${{ github.workspace }}/Release.zip
