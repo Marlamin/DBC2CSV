@@ -1,4 +1,5 @@
 ﻿using DBCD;
+using DBFileReaderLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,8 @@ namespace DBC2CSV
             }
 
             var filesToExport = new List<string>();
-
+            var hotfixFiles = new List<string>();
+            
             foreach(var arg in args)
             {
                 if(arg.EndsWith(".db2") || arg.EndsWith(".dbc"))
@@ -31,35 +33,60 @@ namespace DBC2CSV
 
                     filesToExport.Add(arg);
                 }
+                else if (arg.EndsWith(".bin"))
+                {
+                    hotfixFiles.Add(arg);
+                }
+                else
+                {
+                    FileAttributes attr = File.GetAttributes(arg);
+                    if (attr.HasFlag(FileAttributes.Directory))
+                    {
+                        filesToExport.AddRange(Directory.EnumerateFiles(arg, "*.db2", SearchOption.TopDirectoryOnly).ToList());
+                        filesToExport.AddRange(Directory.EnumerateFiles(arg, "*.dbc", SearchOption.TopDirectoryOnly).ToList());
+                    }
+                    else
+                    {
+                        Console.WriteLine("Unrecognized file: " + arg);
+                    }
+                }
             }
 
-            var inputArg = args[0];
             var baseDir = "";
-
-            FileAttributes attr = File.GetAttributes(inputArg);
-            if (attr.HasFlag(FileAttributes.Directory))
-            {
-                filesToExport.AddRange(Directory.EnumerateFiles(inputArg, "*.db2", SearchOption.TopDirectoryOnly).ToList());
-                filesToExport.AddRange(Directory.EnumerateFiles(inputArg, "*.dbc", SearchOption.TopDirectoryOnly).ToList());
-                baseDir = inputArg;
-            }
-            else
-            {
-                baseDir = Path.GetDirectoryName(inputArg);
-            }
 
             var newLinesInStrings = true;
             var dbcd = new DBCD.DBCD(new DBCProvider(baseDir), new DBDProvider());
 
-            foreach(var fileToExport in filesToExport)
+            // TODO: Somehow figure out how to filter on the right build for the supplied DB2s?
+            List<HotfixReader> hotfixReaders = new List<HotfixReader>();
+            
+            if (hotfixFiles.Count > 0)
+            {
+                Console.WriteLine(".bin file(s) supplied, loading hotfixes..");
+                hotfixReaders.Add(new HotfixReader(hotfixFiles[0]));
+
+                for (var i = 1; i < hotfixFiles.Count; i++)
+                {
+                    hotfixReaders[0].CombineCaches(hotfixFiles[i]);
+                }
+
+                Console.WriteLine("Loaded hotfixes for build " + hotfixReaders[0].BuildId);
+            }
+            
+            foreach (var fileToExport in filesToExport)
             {
                 var tableName = Path.GetFileNameWithoutExtension(fileToExport);
-                Console.WriteLine("Exporting DBC " + tableName);
+                Console.WriteLine("Exporting table " + tableName);
 
                 try
                 {
                     var storage = dbcd.Load(tableName);
 
+                    if (hotfixFiles.Count > 0)
+                    {
+                        storage = storage.ApplyingHotfixes(hotfixReaders[0]);
+                    }
+                    
                     if (!storage.Values.Any())
                     {
                         throw new Exception("No rows found!");
@@ -140,7 +167,7 @@ namespace DBC2CSV
 
                         exportWriter.Dispose();
 
-                        File.WriteAllBytes(Path.Combine(baseDir, tableName + ".csv"), exportStream.ToArray());
+                        File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(fileToExport), tableName + ".csv"), exportStream.ToArray());
                     }
                 }
                 catch(Exception e)
