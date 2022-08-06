@@ -51,8 +51,8 @@ jobs:
       with:
         directory: ${{ github.workspace }}/DBC2CSV/bin/Release/net6.0
         type: 'zip'
-        filename: ${{ github.workspace }}/Release.zip
+        filename: ${{ github.workspace }}/Release-${{ matrix.target }}.zip
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ github.workspace }}/Release.zip
+        files: ${{ github.workspace }}/Release-${{ matrix.target }}.zip
