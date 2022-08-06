@@ -22,10 +22,21 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - uses: actions/upload-artifact@v3
+    - name: Archive Release
+      uses: thedoctor0/zip-release@main
       with:
-        name: Release
-        path: /home/runner/work/DBC2CSV/DBC2CSV/DBC2CSV/bin/Debug/net6.0
+        path: '/home/runner/work/DBC2CSV/DBC2CSV/DBC2CSV/bin/Debug/net6.0'
+        type: 'zip'
+        filename: 'Release.zip'
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: Release.zip
+        asset_name: Release
+        tag: ${{ github.ref }}
+        overwrite: true
+        body: "Latest release"
