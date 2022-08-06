@@ -2,10 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DBCD\DBCD\DBCD.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\WoWDBDefs\definitions\**" LinkBase="definitions\" CopyToOutputDirectory="Always" />
   </ItemGroup>
 </Project>
