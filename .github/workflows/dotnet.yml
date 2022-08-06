@@ -25,3 +25,7 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Release
+        path: DBC2CSV/DBC2CSV/DBC2CSV/bin/Debug/net6.0/
