@@ -140,7 +140,7 @@ namespace DBC2CSV
 
                         exportWriter.Dispose();
 
-                        File.WriteAllBytes(tableName + ".csv", exportStream.ToArray());
+                        File.WriteAllBytes(Path.Combine(baseDir, tableName + ".csv"), exportStream.ToArray());
                     }
                 }
                 catch(Exception e)
