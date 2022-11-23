@@ -53,11 +53,10 @@ namespace DBC2CSV
                 }
             }
 
-            var baseDir = "";
-
             var newLinesInStrings = true;
-            var dbcd = new DBCD.DBCD(new DBCProvider(baseDir), new DBDProvider());
 
+            var dbdProvider = new DBDProvider();
+            
             // TODO: Somehow figure out how to filter on the right build for the supplied DB2s?
             List<HotfixReader> hotfixReaders = new List<HotfixReader>();
             
@@ -76,6 +75,8 @@ namespace DBC2CSV
             
             foreach (var fileToExport in filesToExport)
             {
+                var dbcd = new DBCD.DBCD(new DBCProvider(Path.GetDirectoryName(fileToExport)), dbdProvider);
+
                 var tableName = Path.GetFileNameWithoutExtension(fileToExport);
                 Console.WriteLine("Exporting table " + tableName);
 
