@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace DBC2CSV
 {
@@ -17,6 +18,10 @@ namespace DBC2CSV
                 Console.WriteLine("Expected argument: db2filename or db2folder");
                 return;
             }
+
+            // Force system culture to ensure that decimal separator is always a dot
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+
 
             var filesToExport = new List<string>();
             var hotfixFiles = new List<string>();
