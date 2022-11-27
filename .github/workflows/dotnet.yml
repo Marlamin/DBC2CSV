@@ -40,9 +40,9 @@ jobs:
       with:
         submodules: recursive
     - name: Setup .NET
-      uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -52,10 +52,10 @@ jobs:
     - name: Archive Release
       uses: thedoctor0/zip-release@main
       with:
-        directory: ${{ github.workspace }}/DBC2CSV/bin/Release/net6.0
+        directory: ${{ github.workspace }}/DBC2CSV/bin/Release/net7.0
         type: 'zip'
         filename: ${{ github.workspace }}/Release-${{ matrix.target }}.zip
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v0.1.13
       with:
         files: ${{ github.workspace }}/Release-${{ matrix.target }}.zip
