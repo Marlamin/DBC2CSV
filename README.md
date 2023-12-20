@@ -12,7 +12,9 @@ The latest version can be downloaded [here](https://github.com/Marlamin/DBC2CSV/
 
 ## Supported files
 ### DBC/DB2s
-This tool does not download or extract DB2 files for you. This needs to be done through a different application such as [WoW.tools](https://wow.tools/files) (while available), [CASCExplorer](https://github.com/WoW-Tools/CASCExplorer/releases) or [wow.export](https://www.kruithne.net/wow.export/) (DB2s aren't listed in wow.export by default, for that go to the menu on the top right and click "Browse Raw Client files"). Only files versioned WDB5+ (~Legion) and up will work.
+This tool does not download or extract DB2 files for you. This needs to be done through a different application such as [WoW.tools](https://wow.tools/files) (while available), [CASCExplorer](https://github.com/WoW-Tools/CASCExplorer/releases) or [wow.export](https://www.kruithne.net/wow.export/) (DB2s aren't listed in wow.export by default, for that go to the menu on the top right and click "Browse Raw Client files"). 
+
+_**Only files versioned WDB5+ (~Legion) and up will work.**_
 
 ### Hotfixes (DBCache.bin)
 Hotfix files can be optionally supplied to the application as well, but please make sure these are from the same (or a compatible) build of the game as the DB2s you are giving to the application, there might be crashes/malformed output otherwise. DBCache.bin can be found in your WoW directory (e.g. `_retail_/Cache/ADB/enUS`).
