@@ -1,5 +1,5 @@
 ﻿using DBCD;
-using DBFileReaderLib;
+using DBCD.IO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ namespace DBC2CSV
     {
         static void Main(string[] args)
         {
-            if(args.Length == 0)
+            if (args.Length == 0)
             {
                 Console.WriteLine("Expected argument: db2filename or db2folder");
                 return;
@@ -22,13 +22,12 @@ namespace DBC2CSV
             // Force system culture to ensure that decimal separator is always a dot
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
-
             var filesToExport = new List<string>();
             var hotfixFiles = new List<string>();
-            
-            foreach(var arg in args)
+
+            foreach (var arg in args)
             {
-                if(arg.EndsWith(".db2") || arg.EndsWith(".dbc"))
+                if (arg.EndsWith(".db2") || arg.EndsWith(".dbc"))
                 {
                     if (!File.Exists(arg))
                     {
@@ -61,10 +60,10 @@ namespace DBC2CSV
             var newLinesInStrings = true;
 
             var dbdProvider = new DBDProvider();
-            
+
             // TODO: Somehow figure out how to filter on the right build for the supplied DB2s?
             List<HotfixReader> hotfixReaders = new List<HotfixReader>();
-            
+
             if (hotfixFiles.Count > 0)
             {
                 Console.WriteLine(".bin file(s) supplied, loading hotfixes..");
@@ -77,7 +76,7 @@ namespace DBC2CSV
 
                 Console.WriteLine("Loaded hotfixes for build " + hotfixReaders[0].BuildId);
             }
-            
+
             foreach (var fileToExport in filesToExport)
             {
                 var dbcd = new DBCD.DBCD(new DBCProvider(Path.GetDirectoryName(fileToExport)), dbdProvider);
@@ -91,9 +90,9 @@ namespace DBC2CSV
 
                     if (hotfixFiles.Count > 0)
                     {
-                        storage = storage.ApplyingHotfixes(hotfixReaders[0]);
+                        storage.ApplyingHotfixes(hotfixReaders[0]);
                     }
-                    
+
                     if (!storage.Values.Any())
                     {
                         throw new Exception("No rows found!");
@@ -177,7 +176,7 @@ namespace DBC2CSV
                         File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(fileToExport), tableName + ".csv"), exportStream.ToArray());
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine("Failed to export DB2 " + tableName + ": " + e.Message);
                 }

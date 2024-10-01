@@ -4,11 +4,10 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DBCD\DBCD\DBCD.csproj" />
-  </ItemGroup>
   <ItemGroup>
     <Content Include="..\WoWDBDefs\definitions\**" LinkBase="definitions\" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DBCD" Version="2.0.3" />
   </ItemGroup>
 </Project>

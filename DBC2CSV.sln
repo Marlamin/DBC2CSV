@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29418.71
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBC2CSV", "DBC2CSV\DBC2CSV.csproj", "{216EF84C-0030-4AB4-AAC7-25F10ABB4650}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBCD", "DBCD\DBCD\DBCD.csproj", "{B2C5B103-5396-44EF-A529-ED5D067BFAB8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBFileReaderLib", "DBCD\DBFileReaderLib\DBFileReaderLib.csproj", "{A570F77E-9460-4243-93B3-755B7C0BB157}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBC2CSV", "DBC2CSV\DBC2CSV.csproj", "{216EF84C-0030-4AB4-AAC7-25F10ABB4650}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +15,6 @@ Global
 		{216EF84C-0030-4AB4-AAC7-25F10ABB4650}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{216EF84C-0030-4AB4-AAC7-25F10ABB4650}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{216EF84C-0030-4AB4-AAC7-25F10ABB4650}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2C5B103-5396-44EF-A529-ED5D067BFAB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2C5B103-5396-44EF-A529-ED5D067BFAB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2C5B103-5396-44EF-A529-ED5D067BFAB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2C5B103-5396-44EF-A529-ED5D067BFAB8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A570F77E-9460-4243-93B3-755B7C0BB157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A570F77E-9460-4243-93B3-755B7C0BB157}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A570F77E-9460-4243-93B3-755B7C0BB157}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A570F77E-9460-4243-93B3-755B7C0BB157}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
