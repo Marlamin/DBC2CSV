@@ -2,8 +2,8 @@
 This project is a stand-alone version of the WoW.tools DB2 -> CSV export functionality.
 
 ## Requirements
-### .NET 7.0
-The .NET 7.0 runtime is required to run this application, it can be downloaded [here](https://dotnet.microsoft.com/en-us/download).
+### .NET 8.0
+The .NET 8.0 runtime is required to run this application, it can be downloaded [here](https://dotnet.microsoft.com/en-us/download).
 ### Definitions
 While definitions are included in releases, these are likely to be outdated when exporting DB2s from a more recent version of WoW. Hopefully up-to-date definitions can be found on [here](https://github.com/wowdev/WoWDBDefs) (to download, click Code -> Download ZIP), to update definitions overwrite the `definitions` folder with the `definitions` folder from the downloaded version of the WoWDBDefs repo.
 
