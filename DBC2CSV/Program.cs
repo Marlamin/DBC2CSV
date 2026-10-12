@@ -77,10 +77,17 @@ namespace DBC2CSV
                 Console.WriteLine("Loaded hotfixes for build " + hotfixReaders[0].BuildId);
             }
 
+            if (filesToExport.Count == 0)
+            {
+                Console.WriteLine("No DB2 files found to export, exiting.");
+                return;
+            }
+
+            var targetDirectory = Path.GetDirectoryName(filesToExport.First());
+            var dbcd = new DBCD.DBCD(new DBCProvider(targetDirectory), dbdProvider);
+
             foreach (var fileToExport in filesToExport)
             {
-                var dbcd = new DBCD.DBCD(new DBCProvider(Path.GetDirectoryName(fileToExport)), dbdProvider);
-
                 var tableName = Path.GetFileNameWithoutExtension(fileToExport);
                 Console.WriteLine("Exporting table " + tableName);
 
@@ -89,13 +96,12 @@ namespace DBC2CSV
                     var storage = dbcd.Load(tableName);
 
                     if (hotfixFiles.Count > 0)
-                    {
                         storage.ApplyingHotfixes(hotfixReaders[0]);
-                    }
 
-                    if (!storage.Values.Any())
+                    if (storage.Values.Count == 0)
                     {
-                        throw new Exception("No rows found!");
+                        Console.WriteLine("No rows found in table " + tableName + ", skipping.");
+                        continue;
                     }
 
                     var headerWritten = false;
@@ -190,18 +196,18 @@ namespace DBC2CSV
                 str = str.Replace("\n", "").Replace("\r", "");
             }
 
-            var mustQuote = (str.Contains(",") || str.Contains("\"") || str.Contains("\r") || str.Contains("\n"));
+            var mustQuote = (str.Contains(',') || str.Contains('"') || str.Contains('\r') || str.Contains('\n'));
             if (mustQuote)
             {
                 var sb = new StringBuilder();
-                sb.Append("\"");
+                sb.Append('"');
                 foreach (var nextChar in str)
                 {
                     sb.Append(nextChar);
                     if (nextChar == '"')
-                        sb.Append("\"");
+                        sb.Append('"');
                 }
-                sb.Append("\"");
+                sb.Append('"');
                 return sb.ToString();
             }
 

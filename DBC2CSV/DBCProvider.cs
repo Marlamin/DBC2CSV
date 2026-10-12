@@ -1,15 +1,13 @@
 ﻿using DBCD.Providers;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace DBC2CSV
 {
     public class DBCProvider : IDBCProvider
     {
         private string baseDir = "";
-        
+
         public DBCProvider(string baseDir)
         {
             this.baseDir = baseDir;

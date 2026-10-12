@@ -1,17 +1,17 @@
 ﻿using DBCD.Providers;
 using DBDefsLib;
+using DBDefsLib.Structs;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace DBC2CSV
 {
     public class DBDProvider : IDBDProvider
     {
         private readonly DBDReader dbdReader;
-        private Dictionary<string, (string FilePath, Structs.DBDefinition Definition)> definitionLookup;
+        private Dictionary<string, (string FilePath, DBDefinition Definition)> definitionLookup;
         public DBDProvider()
         {
             dbdReader = new DBDReader();
@@ -43,7 +43,7 @@ namespace DBC2CSV
             throw new FileNotFoundException("Definition for " + tableName);
         }
 
-        public bool TryGetDefinition(string tableName, out Structs.DBDefinition definition)
+        public bool TryGetDefinition(string tableName, out DBDefinition definition)
         {
             if (definitionLookup.TryGetValue(tableName, out var lookup))
             {
@@ -51,7 +51,7 @@ namespace DBC2CSV
                 return true;
             }
 
-            definition = default(Structs.DBDefinition);
+            definition = default;
             return false;
         }
     }
